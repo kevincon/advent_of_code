@@ -9,18 +9,18 @@ def calibrate_frequency_drift(drift_sequence: typing.Iterable[int])-> int:
 
 
 def test_example1():
-    assert 3 == calibrate_frequency_drift([1, 1, 1])
+    assert calibrate_frequency_drift([1, 1, 1]) == 3
 
 
 def test_example2():
-    assert 0 == calibrate_frequency_drift([1, 1, -2])
+    assert calibrate_frequency_drift([1, 1, -2]) == 0
 
 
 def test_example3():
-    assert -6 == calibrate_frequency_drift([-1, -2, -3])
+    assert calibrate_frequency_drift([-1, -2, -3]) == -6
 
 
 def test_answer():
     module_dir = os.path.dirname(os.path.realpath(__file__))
     with pathlib.Path(module_dir, 'input.txt').open() as f:
-        assert 578 == calibrate_frequency_drift(map(int, f.readlines()))
+        assert calibrate_frequency_drift(map(int, f.readlines())) == 578
