@@ -5,7 +5,7 @@ python:
 install:
   - pip install pipenv
   - pipenv install --dev
-script: python -m pytest --cov=.
+script: pytest
 after_success: codecov
 branches:
   only:
