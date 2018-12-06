@@ -5,8 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+pytest-cov = "*"
+codecov = "*"
 
 [packages]
-
-[requires]
-python_version = "3.7"
