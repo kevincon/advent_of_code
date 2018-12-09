@@ -165,7 +165,7 @@ def test_sleep_schedules_from_strings():
     }
 
 
-def get_part1_answer(lines):
+def get_part1_answer(lines: typing.List[str]) -> typing.Tuple[int, int]:
     """https://adventofcode.com/2018/day/4"""
     guard_sleep_schedules = guard_sleep_schedules_from_strings(lines)
     guard_asleep_most_minutes_id, minutes_asleep = max(guard_sleep_schedules.items(),
@@ -195,3 +195,31 @@ def test_part1_answer(input_file_lines):
     assert guard_asleep_most_minutes_id == 971
     assert minute_guard_slept_the_most == 38
     assert guard_asleep_most_minutes_id * minute_guard_slept_the_most == 36898
+
+
+def get_part_2_answer(lines: typing.List[str]) -> typing.Tuple[int, int]:
+    """https://adventofcode.com/2018/day/4#part2"""
+    guard_sleep_schedules = guard_sleep_schedules_from_strings(lines)
+    guard_most_frequently_asleep_on_same_minute_id, minutes_asleep = max(guard_sleep_schedules.items(),
+                                                                         key=lambda item: max(item[1].values()))
+    minute_guard_slept_most_frequently, _ = minutes_asleep.most_common(1)[0]
+
+    return guard_most_frequently_asleep_on_same_minute_id, minute_guard_slept_most_frequently
+
+
+def test_part2_example():
+    guard_most_frequently_asleep_on_same_minute_id, minute_guard_slept_most_frequently = \
+        get_part_2_answer(EXAMPLE_INPUT.splitlines())
+
+    assert guard_most_frequently_asleep_on_same_minute_id == 99
+    assert minute_guard_slept_most_frequently == 45
+    assert (guard_most_frequently_asleep_on_same_minute_id * minute_guard_slept_most_frequently) == 4455
+
+
+def test_part2_answer(input_file_lines):
+    guard_most_frequently_asleep_on_same_minute_id, minute_guard_slept_most_frequently = \
+        get_part_2_answer(input_file_lines)
+
+    assert guard_most_frequently_asleep_on_same_minute_id == 1877
+    assert minute_guard_slept_most_frequently == 43
+    assert (guard_most_frequently_asleep_on_same_minute_id * minute_guard_slept_most_frequently) == 80711
