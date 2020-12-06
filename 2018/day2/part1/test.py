@@ -18,18 +18,23 @@ def calculate_checksum(box_ids: typing.Iterable[str]) -> int:
 
 
 def test_example():
-    assert calculate_checksum([
-        'abcdef',
-        'bababc',
-        'abbcde',
-        'abcccd',
-        'aabcdd',
-        'abcdee',
-        'ababab',
-    ]) == 12
+    assert (
+        calculate_checksum(
+            [
+                "abcdef",
+                "bababc",
+                "abbcde",
+                "abcccd",
+                "aabcdd",
+                "abcdee",
+                "ababab",
+            ]
+        )
+        == 12
+    )
 
 
 def test_answer():
     module_dir = os.path.dirname(os.path.realpath(__file__))
-    with pathlib.Path(module_dir, 'input.txt').open() as f:
+    with pathlib.Path(module_dir, "input.txt").open() as f:
         assert calculate_checksum(f.readlines()) == 5368

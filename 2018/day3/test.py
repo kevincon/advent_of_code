@@ -24,20 +24,23 @@ class Claim(typing.NamedTuple):
 
 
 def claim_from_string(s: str) -> Claim:
-    pattern = r'#(?P<id>\d+)\s@\s(?P<x>\d+),(?P<y>\d+):\s(?P<width>\d+)x(?P<height>\d+)'
+    pattern = r"#(?P<id>\d+)\s@\s(?P<x>\d+),(?P<y>\d+):\s(?P<width>\d+)x(?P<height>\d+)"
     match = re.match(pattern, s)
-    return Claim(id=int(match.group('id')),
-                 rect=Rectangle(x=int(match.group('x')),
-                                y=int(match.group('y')),
-                                width=int(match.group('width')),
-                                height=int(match.group('height'))
-                                )
-                 )
+    assert match is not None
+    return Claim(
+        id=int(match.group("id")),
+        rect=Rectangle(
+            x=int(match.group("x")),
+            y=int(match.group("y")),
+            width=int(match.group("width")),
+            height=int(match.group("height")),
+        ),
+    )
 
 
 def test_claim_from_string():
-    assert claim_from_string('#1 @ 1,3: 4x4') == Claim(id=1, rect=Rectangle(1, 3, 4, 4))
-    assert claim_from_string('#4321 @ 45,83: 24x13') == Claim(id=4321, rect=Rectangle(45, 83, 24, 13))
+    assert claim_from_string("#1 @ 1,3: 4x4") == Claim(id=1, rect=Rectangle(1, 3, 4, 4))
+    assert claim_from_string("#4321 @ 45,83: 24x13") == Claim(id=4321, rect=Rectangle(45, 83, 24, 13))
 
 
 class CounterMap:
@@ -81,9 +84,9 @@ def calculate_area_common_to_two_or_more_claim_strings(claim_strings: typing.Lis
 
 def test_part1_example():
     example = [
-        '#1 @ 1,3: 4x4',
-        '#2 @ 3,1: 4x4',
-        '#3 @ 5,5: 2x2',
+        "#1 @ 1,3: 4x4",
+        "#2 @ 3,1: 4x4",
+        "#3 @ 5,5: 2x2",
     ]
     assert calculate_area_common_to_two_or_more_claim_strings(example) == 4
 
@@ -91,7 +94,7 @@ def test_part1_example():
 @pytest.fixture
 def input_file_lines():
     module_dir = os.path.dirname(os.path.realpath(__file__))
-    with pathlib.Path(module_dir, 'input.txt').open() as f:
+    with pathlib.Path(module_dir, "input.txt").open() as f:
         yield f.read().splitlines()
 
 

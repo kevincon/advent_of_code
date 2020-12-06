@@ -27,7 +27,7 @@ def test_find_first_duplicate_frequency():
     assert find_first_duplicate_frequency([7, 3, 1]) is None
 
 
-def find_first_duplicate_frequency_in_repeating_drift_sequence(drift_sequence: typing.Iterable[int])-> int:
+def find_first_duplicate_frequency_in_repeating_drift_sequence(drift_sequence: typing.Iterable[int]) -> int:
     """https://adventofcode.com/2018/day/1#part2"""
     frequency_sequence = calculate_frequency_sequence(drift_sequence)
 
@@ -40,18 +40,21 @@ def find_first_duplicate_frequency_in_repeating_drift_sequence(drift_sequence: t
     enumerated_frequency_sequence_pairs = list(itertools.combinations(enumerate(frequency_sequence), 2))
     differences = map(lambda pair: pair[0][1] - pair[1][1], enumerated_frequency_sequence_pairs)
     enumerated_pairs_with_differences = zip(enumerated_frequency_sequence_pairs, differences)
-    only_multiples_of_last_frequency = filter(lambda pair_with_diff: pair_with_diff[1] % last_frequency == 0,
-                                              enumerated_pairs_with_differences)
+    only_multiples_of_last_frequency = filter(
+        lambda pair_with_diff: pair_with_diff[1] % last_frequency == 0, enumerated_pairs_with_differences
+    )
 
     def get_position_of_value_that_will_become_duplicate(pair_with_diff):
         enumerated_pair, diff = pair_with_diff
         comparison_function = min if last_frequency > 0 else max
         return comparison_function(enumerated_pair, key=lambda enumerated_value: enumerated_value[1])[0]
 
-    sorted_by_position_of_value_that_will_become_duplicate = \
-        sorted(only_multiples_of_last_frequency,  key=get_position_of_value_that_will_become_duplicate)
-    smallest_magnitude_diff_enumerated_pair, _ = min(sorted_by_position_of_value_that_will_become_duplicate,
-                                                     key=lambda pair_with_diff: abs(pair_with_diff[1]))
+    sorted_by_position_of_value_that_will_become_duplicate = sorted(
+        only_multiples_of_last_frequency, key=get_position_of_value_that_will_become_duplicate
+    )
+    smallest_magnitude_diff_enumerated_pair, _ = min(
+        sorted_by_position_of_value_that_will_become_duplicate, key=lambda pair_with_diff: abs(pair_with_diff[1])
+    )
     _, smallest_magnitude_diff_pair = zip(*smallest_magnitude_diff_enumerated_pair)
     comparision_function = max if last_frequency > 0 else min
     return comparision_function(smallest_magnitude_diff_pair)
@@ -93,5 +96,5 @@ def test_example4():
 
 def test_answer():
     module_dir = os.path.dirname(os.path.realpath(__file__))
-    with pathlib.Path(module_dir, 'input.txt').open() as f:
+    with pathlib.Path(module_dir, "input.txt").open() as f:
         assert find_first_duplicate_frequency_in_repeating_drift_sequence(map(int, f.readlines())) == 82516
