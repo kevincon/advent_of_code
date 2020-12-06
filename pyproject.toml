@@ -3,7 +3,6 @@ line-length = 120
 target-version = ['py38']
 include = '\.pyi?$'
 exclude = '''
-
 (
   /(
       \.eggs         # exclude a few common directories in the
@@ -21,3 +20,9 @@ exclude = '''
                      # the root of the project
 )
 '''
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+required_plugins = "pytest-xdist"
+addopts = "-ra -n auto"
+python_files = "test.py"
