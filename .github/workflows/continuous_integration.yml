@@ -19,3 +19,13 @@ jobs:
         uses: ./.github/actions
         with:
           command: pre-commit run --verbose
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Tests
+        uses: ./.github/actions
+        with:
+          command: pytest
