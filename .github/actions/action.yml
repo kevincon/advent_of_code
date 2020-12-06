@@ -1,0 +1,10 @@
+name: "Run Command in Dev Container"
+description: "Runs a command in the repo's Dev Container"
+inputs:
+  command:
+    description: "Command to run"
+    required: true
+runs:
+  using: "docker"
+  image: "../../.devcontainer/Dockerfile"
+  entrypoint: 'bash -c "${{ inputs.command }}"'
