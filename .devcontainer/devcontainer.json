@@ -1,0 +1,44 @@
+{
+	"name": "Python 3",
+	"build": {
+		"dockerfile": "../Dockerfile",
+		"context": ".."
+	},
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"[python]": {
+			// These settings are recommended when using black for formatting:
+			// https://code.visualstudio.com/docs/python/editing#_troubleshooting
+			"editor.formatOnPaste": false,
+			"editor.formatOnSaveMode": "file"
+		},
+		"python.pythonPath": "/usr/local/bin/python",
+		"python.linting.enabled": true,
+		"python.linting.pylintEnabled": false,
+		"python.linting.flake8Enabled": true,
+		"python.linting.mypyEnabled": true,
+		"python.formatting.provider": "black",
+		"python.testing.unittestEnabled": false,
+		"python.testing.nosetestsEnabled": false,
+		"python.testing.pytestEnabled": true,
+		"git.autofetch": false
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-python.python",
+		"ms-azuretools.vscode-docker",
+		"tamasfe.even-better-toml"
+	]
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "pip3 install --user -r requirements.txt",
+
+	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	// "remoteUser": "vscode"
+}

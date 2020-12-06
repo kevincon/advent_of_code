@@ -1,0 +1,36 @@
+name: Continuous Integration
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    # We run this workflow weekly at midnight UTC on Sundays
+    - cron:  '0 0 * * SUN'
+jobs:
+  pre_commit:
+    name: pre-commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Pre-commit
+        uses: ./.github/actions
+        with:
+          command: pre-commit run --verbose
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Tests
+        uses: ./.github/actions
+        with:
+          command: pytest --cov=. --cov-report=xml
+      - name: Upload Coverage Report
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
+          verbose: true
