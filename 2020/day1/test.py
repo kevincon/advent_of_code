@@ -27,7 +27,7 @@ def part2(entries: typing.Set[int]) -> typing.Optional[int]:
         result = part1(entries - set([entry]), target_sum=remainder)
         if result is not None:
             return result * entry
-    return None
+    return None  # pragma: no cover
 
 
 def test_part2_answer(input_entries: typing.Set[int]) -> None:
